@@ -1,0 +1,10 @@
+{"compilerOptions":{
+  "baseUrl": ".",
+  "module": "commonjs",
+  "experimentalDecorators": true,
+  "allowSyntheticDefaultImports": true,
+},
+  "extends": "../../tsconfig.base.json",
+  "files": [
+  ]
+}

@@ -2,14 +2,14 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "commitlint": "^15.0.0",
+    "husky": "^7.0.4",
+    "lerna": "^4.0.0",
+    "typescript": "^4.5.2"
   },
-  "description": "pnpm gql flutter",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",

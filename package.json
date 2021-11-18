@@ -16,9 +16,5 @@
     "url": "git+https://github.com/yuban12315/eden.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yuban12315/eden/issues"
-  },
-  "homepage": "https://github.com/yuban12315/eden#readme"
+  "license": "ISC"
 }

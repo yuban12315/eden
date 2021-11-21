@@ -3,19 +3,14 @@
   "version": "0.0.0",
   "description": "> TODO: description",
   "scripts": {
-    "dev": "ts-node ./src/index.ts --watch"
+    "dev": "ts-node ./src/index.ts --watch",
+    "start-db": "brew services start mongodb-community@5.0",
+    "stop-db": "brew services stop mongodb-community@5.0"
   },
   "keywords": [
     "server"
   ],
   "license": "ISC",
-  "publishConfig": {
-    "registry": "https://registry.npm.taobao.org"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yuban12315/eden.git"
-  },
   "dependencies": {
     "koa": "^2.13.4"
   },

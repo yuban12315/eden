@@ -27,7 +27,6 @@ export const Page = styled.div`
   z-index: 2;
   font-size: 14px;
   position: relative;
-  /* background-color: #17171a; */
   background-color: var(--color-bg-1);
 `;
 

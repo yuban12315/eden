@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { Spin } from '@arco-design/web-react';
-import styled from 'styled-components';
+import React, { FC } from "react";
+import { Spin } from "@arco-design/web-react";
+import styled from "styled-components";
 
 const Container = styled.div`
   width: 100vw;
@@ -11,9 +11,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  background-color: var(--color-bg-1);
 `;
 
-// interface LoadingProps {}
 const LoadingView: FC = () => {
   return (
     <Container>

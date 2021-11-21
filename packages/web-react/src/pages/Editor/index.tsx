@@ -3,7 +3,6 @@ import RichEditor from "rich-markdown-editor";
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useLocalStorage } from "../../hooks";
-import { debounce } from "lodash-es";
 
 const MARKDOWN_KEY = "MARKDOWN_KEY";
 
@@ -19,15 +18,14 @@ const Editor: FC = () => {
 
   useEffect(() => {
     recover();
-    // console.log(contentRef.current());
-  }, []);
+  });
 
   // 自动保存到localStorage
   // const autoSave = () => {
   //   localStorage.setItem("markdown", "");
   // };
 
-  // 从localstorage还原
+  // 从localstorage或远端还原
   const recover = () => {
     const note = getNote();
     setInitialContent(note);
@@ -36,7 +34,7 @@ const Editor: FC = () => {
   // 保存到远端
   const handleSave = () => {
     // 保存到localstorage
-    setNote(initialContent || content);
+    setNote(content || initialContent);
   };
 
   return (

@@ -1,8 +1,7 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "@arco-design/theme-high-contrast/css/arco.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
 import reportWebVitals from "./reportWebVitals";
 import LoadingView from "./components/LoadingView";
 
@@ -10,6 +9,10 @@ import LoadingView from "./components/LoadingView";
 const Editor = lazy(() => import("./pages/Editor"));
 
 const App = () => {
+  useEffect(() => {
+    document.body.setAttribute("arco-theme", "dark");
+  }, []);
+
   return (
     <BrowserRouter>
       <Suspense fallback={<LoadingView />}>

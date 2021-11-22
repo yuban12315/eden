@@ -20,13 +20,13 @@ const Navbar: FC = () => {
       <PageHeader title="EdenWeb" subTitle="Eden项目Web版" />
       <FlexDiv>
         <IconContainer>
-          <Tooltip content="切换显示模式" defaultPopupVisible={true}>
-            <Button
-              onClick={switchMode}
-              size="mini"
-              icon={isDarkMode ? <IconMoonFill /> : <IconSunFill />}
-            />
-          </Tooltip>
+          {/* <Tooltip content="切换显示模式" defaultPopupVisible={true}> */}
+          <Button
+            onClick={switchMode}
+            size="mini"
+            icon={isDarkMode ? <IconMoonFill /> : <IconSunFill />}
+          />
+          {/* </Tooltip> */}
         </IconContainer>
 
         <UserBrand

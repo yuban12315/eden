@@ -4,13 +4,15 @@ import "@arco-design/theme-high-contrast/css/arco.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import LoadingView from "./components/LoadingView";
+import { useStore } from "./store";
 
 // lazy loading pages
 const Editor = lazy(() => import("./pages/Editor"));
 
 const App = () => {
+  const setMode = useStore((state) => state.setMode);
   useEffect(() => {
-    document.body.setAttribute("arco-theme", "dark");
+    setMode({ isDarkMode: false });
   }, []);
 
   return (

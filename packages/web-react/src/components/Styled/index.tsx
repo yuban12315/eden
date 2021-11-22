@@ -31,7 +31,7 @@ export const Page = styled.div`
 `;
 
 export const Container = styled.div`
-  transition: all 0.5s;
+  transition: all 1s;
   @media (min-width: 1200px) {
     margin-left: 20%;
     width: 60%;
@@ -46,4 +46,9 @@ export const Container = styled.div`
 export const FlexDiv = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const IconContainer = styled.div`
+  /* color: var(--color-primary-6); */
+  margin-right: 4px;
 `;

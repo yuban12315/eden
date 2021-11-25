@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import LoadingView from "./components/LoadingView";
 import { useStore } from "./store";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo";
 
 // lazy loading pages
 const Editor = lazy(() => import("./pages/Editor"));
@@ -31,9 +33,12 @@ const App = () => {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
+
   document.getElementById("root")
 );
 

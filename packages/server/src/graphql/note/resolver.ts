@@ -11,7 +11,7 @@ import {
 @Resolver()
 export default class NoteResolver {
   @Query(() => GetNoteContentResponse)
-  async getNoteConent(@Arg("id") id: string): Promise<GetNoteContentResponse> {
+  async content(@Arg("id") id: string): Promise<GetNoteContentResponse> {
     return {
       title: "test",
       content: "tss",
@@ -20,16 +20,14 @@ export default class NoteResolver {
   }
 
   @Query(() => Note)
-  async getNote(@Arg("id") id: string): Promise<Note | null> {
+  async note(@Arg("id") id: string): Promise<Note | null> {
     return await noteModel.findById(id).exec();
   }
 
   @Mutation(() => String)
   async createNote(@Arg("Data") data: CreateNoteParams, @Ctx() ctx: Context) {
-    // TODO: 创建时获取自增Id
-    const res = await noteModel.create({ ...data });
-    console.log(res);
-    return res;
+    const { _id } = await noteModel.create({ ...data });
+    return _id;
   }
 
   @Mutation(() => String)

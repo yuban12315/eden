@@ -5,7 +5,7 @@ import Koa from "koa";
 import { PORT, useMock } from "./utils/constants";
 import { getSchema } from "./graphql";
 import { startMongoDB } from "./mongo";
-import "dotenv/config";
+import { config } from "dotenv";
 
 // TODO: login
 // TODO: router
@@ -23,6 +23,8 @@ async function applyApolloServer(app: Koa) {
 }
 
 async function startServer() {
+  config();
+
   const port = process.env.PORT;
   const app = new Koa();
 

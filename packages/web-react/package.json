@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.5",
     "@arco-design/theme-high-contrast": "^0.0.1",
     "@arco-design/web-react": "^2.25.0",
     "lodash-es": "^4.17.21",

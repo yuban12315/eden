@@ -6,7 +6,8 @@
     "dev": "nodemon --watch src -e ts --exec ts-node ./src/index.ts",
     "dev-mock": "cross-env USE_MOCK=true pnpm run dev",
     "start-db": "brew services start mongodb-community@5.0",
-    "stop-db": "brew services stop mongodb-community@5.0"
+    "stop-db": "brew services stop mongodb-community@5.0",
+    "codegen": "graphql-codegen"
   },
   "keywords": [
     "server"
@@ -25,7 +26,13 @@
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.0",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@graphql-codegen/typescript-operations": "^2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.1",
     "cross-env": "^7.0.3",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.0",
     "ts-node": "^10.4.0"
   }
 }

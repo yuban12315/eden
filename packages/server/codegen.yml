@@ -1,0 +1,14 @@
+schema: http://localhost:8080/graphql/
+documents: ../web-react/src/apollo/*.gql
+generates:
+  ../web-react/src/apollo/operation.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+
+    config:
+      withHooks: true
+hooks:
+  afterAllFileWrite:
+    - prettier --write

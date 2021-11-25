@@ -9,9 +9,6 @@ import { User } from "../user/entity";
 export class Note {
   _id: Types.ObjectId;
 
-  @Field({ description: "文章的唯一Id,自增" })
-  id: string;
-
   @prop()
   @Field({ description: "文章的标题" })
   title: string;
@@ -34,6 +31,10 @@ export class Note {
   @prop()
   @Field()
   createTime: Date;
+
+  @prop()
+  @Field({ description: "文章属于的文集Id" })
+  collectionId: string;
 }
 
 export const noteModel = getModelForClass(Note);
@@ -65,6 +66,9 @@ export class GetNoteContentResponse {
 
 @InputType()
 export class CreateNoteParams {
+  @Field({ description: "文章属于的文集Id" })
+  collectionId: string;
+
   @Field()
   title: string;
 

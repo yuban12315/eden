@@ -4,13 +4,18 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import Koa from "koa";
 import { PORT, useMock } from "./utils/constants";
 import { getSchema } from "./graphql";
+import { startMongoDB } from "./mongo";
+import "dotenv/config";
 
 // TODO: login
-// TODO: mongodb
 // TODO: router
 
 async function applyApolloServer(app: Koa) {
-  const server = new ApolloServer({ mocks: useMock(), schema: getSchema() });
+  const server = new ApolloServer({
+    mocks: useMock(),
+    schema: getSchema(),
+    context: ({ ctx }) => ctx,
+  });
 
   await server.start();
 
@@ -18,12 +23,14 @@ async function applyApolloServer(app: Koa) {
 }
 
 async function startServer() {
+  const port = process.env.PORT;
   const app = new Koa();
 
+  await startMongoDB();
   await applyApolloServer(app);
 
-  app.listen(PORT, () =>
-    console.log(`🚀 Server ready at http://localhost:${PORT}`)
+  app.listen(port, () =>
+    console.log(`🚀 Server ready at http://localhost:${port}`)
   );
 }
 

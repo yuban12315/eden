@@ -1,19 +1,22 @@
 import { ObjectType, Field } from "type-graphql";
+import { Types } from "mongoose";
 
 @ObjectType()
 export class User {
-  @Field({ description: "ObjectId" })
-  Id: string;
+  _id: Types.ObjectId;
 
-  @Field({ description: "自增的Id" })
-  SystemId: string;
-
-  @Field()
-  Name: string;
+  @Field({ description: "UserId,自增" })
+  id: string;
 
   @Field()
-  Password: string;
+  name: string;
 
   @Field()
-  CreateTime: Date;
+  nickname: string;
+
+  @Field()
+  password: string;
+
+  @Field()
+  createTime: Date;
 }

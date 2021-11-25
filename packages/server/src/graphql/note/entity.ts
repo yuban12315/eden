@@ -1,64 +1,85 @@
 import { ObjectType, Field, InputType } from "type-graphql";
+import { prop, getModelForClass } from "@typegoose/typegoose";
+import { Types } from "mongoose";
 import { User } from "../user/entity";
 
 // TODO: add typegoose
 
 @ObjectType()
 export class Note {
-  @Field({ description: "文章的唯一Id" })
-  Id: string;
+  _id: Types.ObjectId;
 
+  @Field({ description: "文章的唯一Id,自增" })
+  id: string;
+
+  @prop()
   @Field({ description: "文章的标题" })
-  Title: string;
+  title: string;
 
   @Field(() => [NoteContent], { description: "文章的内容" })
-  Contents: NoteContent[];
+  contents: NoteContent[];
 
+  @prop()
   @Field()
-  Content: string;
+  content: string;
 
-  // 如果Field不写User会发生什么?
-  // @Field(() => User)
+  @prop()
   @Field()
-  Creator: User;
+  creator: User;
 
+  @prop()
   @Field()
-  UpdateTime: Date;
+  updateTime: Date;
 
+  @prop()
   @Field()
-  CreateTime: Date;
+  createTime: Date;
 }
+
+export const noteModel = getModelForClass(Note);
 
 // TODO: 文章是否需要考虑版本？在未实现自动保存的时候，可以缓存一下试试
 @ObjectType()
 export class NoteContent {
   @Field({ description: "文章Markdown内容" })
-  Content: string;
+  content: string;
 
   @Field({ description: "文章版本，最多缓存6个版本" })
-  Version: string;
+  version: string;
 
   @Field()
-  UpdateTime: Date;
-}
-
-@InputType()
-export class CreateNoteParams {
-  @Field()
-  Title: string;
-
-  @Field()
-  Content: string;
+  updateTime: Date;
 }
 
 @ObjectType()
 export class GetNoteContentResponse {
   @Field({ description: "文章的标题" })
-  Title: string;
+  title: string;
 
   @Field()
-  Content: string;
+  content: string;
 
   @Field()
-  UpdateTime: Date;
+  updateTime: Date;
+}
+
+@InputType()
+export class CreateNoteParams {
+  @Field()
+  title: string;
+
+  @Field()
+  content: string;
+}
+
+@InputType()
+export class UpdateNoteParams {
+  @Field({ description: "文章的唯一Id" })
+  id: string;
+
+  @Field()
+  title: string;
+
+  @Field()
+  content: string;
 }

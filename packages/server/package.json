@@ -4,6 +4,7 @@
   "description": "> TODO: description",
   "scripts": {
     "dev": "ts-node ./src/index.ts --watch",
+    "dev-mock": "cross-env USE_MOCK=true pnpm run dev",
     "start-db": "brew services start mongodb-community@5.0",
     "stop-db": "brew services stop mongodb-community@5.0"
   },
@@ -12,9 +13,17 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.13.4"
+    "@typegoose/typegoose": "^9.2.0",
+    "apollo-server-core": "^3.5.0",
+    "apollo-server-koa": "^3.5.0",
+    "class-validator": "^0.13.2",
+    "graphql": "^15.3.0",
+    "koa": "^2.13.4",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "ts-node": "^10.4.0"
   }
 }

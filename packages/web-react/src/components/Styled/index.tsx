@@ -33,8 +33,8 @@ export const Page = styled.div`
 export const Container = styled.div`
   transition: all 1s;
   @media (min-width: 1200px) {
-    margin-left: 20%;
-    width: 60%;
+    margin-left: 10%;
+    width: 80%;
   }
 
   @media (min-width: 500px) and (max-width: 1200px) {

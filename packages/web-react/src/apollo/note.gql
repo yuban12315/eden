@@ -1,7 +1,7 @@
 query getNoteConent($id: String!) {
   content(id: $id) {
     title
-    updateTime
+    updatedAt
     content
   }
 }

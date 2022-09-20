@@ -12,10 +12,18 @@ import {
 export default class NoteResolver {
   @Query(() => GetNoteContentResponse)
   async content(@Arg("id") id: string): Promise<GetNoteContentResponse> {
+    const note = await noteModel.findById(id).exec();
+
+    if (!note) {
+      throw new Error("test error");
+    }
+
+    console.log(note);
+
     return {
-      title: "test",
-      content: "tss",
-      updateTime: new Date(),
+      title: note.title,
+      content: note.content,
+      updatedAt: note.updatedAt,
     };
   }
 

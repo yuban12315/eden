@@ -13,11 +13,14 @@ export class Note {
   @Field({ description: "文章的标题" })
   title: string;
 
-  @Field(() => [NoteContent], { description: "文章的内容" })
+  @Field(() => [NoteContent], {
+    description: "缓存的文章的内容",
+    nullable: true,
+  })
   contents: NoteContent[];
 
   @prop()
-  @Field()
+  @Field({ description: "文章的最新内容" })
   content: string;
 
   @prop()
@@ -26,11 +29,11 @@ export class Note {
 
   @prop()
   @Field()
-  updateTime: Date;
+  updatedAt: Date;
 
   @prop()
   @Field()
-  createTime: Date;
+  createdAt: Date;
 
   @prop()
   @Field({ description: "文章属于的文集Id" })
@@ -45,11 +48,11 @@ export class NoteContent {
   @Field({ description: "文章Markdown内容" })
   content: string;
 
-  @Field({ description: "文章版本，最多缓存6个版本" })
+  @Field({ description: "文章版本，最多缓存10个版本" })
   version: string;
 
   @Field()
-  updateTime: Date;
+  updatedAt: Date;
 }
 
 @ObjectType()
@@ -61,7 +64,7 @@ export class GetNoteContentResponse {
   content: string;
 
   @Field()
-  updateTime: Date;
+  updatedAt: Date;
 }
 
 @InputType()

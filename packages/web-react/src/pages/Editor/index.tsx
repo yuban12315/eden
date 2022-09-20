@@ -11,11 +11,17 @@ const Editor: FC = () => {
 
   console.log(data);
   console.log(error);
+
+  const handleChangeContent = async () => {};
+
   return (
     <Page>
       <Navbar />
       <Container>
-        <EditorView />
+        <EditorView
+          content={data?.content.content ?? ""}
+          onChange={handleChangeContent}
+        />
       </Container>
     </Page>
   );

@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useLocalStorage } from "../../hooks";
 import { useStore } from "../../store/index";
+// TODO: 切换到 slate-react
 
 const MARKDOWN_KEY = "MARKDOWN_KEY";
 
@@ -11,7 +12,13 @@ const MARKDOWN_KEY = "MARKDOWN_KEY";
 // TODO: 文章导出成MarkDown
 // TODO: 字数统计
 // TODO: 点击区太小，autoFocus指针会移到最开始
-const Editor: FC = () => {
+
+interface EditorViewProps {
+  content: string;
+  onChange: (value: string) => Promise<void>;
+}
+
+const Editor: FC<EditorViewProps> = (props) => {
   const [initialContent, setInitialContent] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
@@ -52,19 +59,14 @@ const Editor: FC = () => {
   };
 
   return (
-    <Page>
-      <Navbar />
-      <Container>
-        <RichEditor
-          dark={isDarkMode}
-          autoFocus
-          value={initialContent}
-          onChange={(value) => setContent(value)}
-          onSave={handleSave}
-          onBlur={handleSave}
-        />
-      </Container>
-    </Page>
+    <RichEditor
+      dark={isDarkMode}
+      autoFocus
+      value={initialContent}
+      onChange={(value) => setContent(value)}
+      onSave={handleSave}
+      onBlur={handleSave}
+    />
   );
 };
 

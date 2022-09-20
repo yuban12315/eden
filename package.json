@@ -16,5 +16,8 @@
     "url": "git+https://github.com/yuban12315/eden.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ]
 }

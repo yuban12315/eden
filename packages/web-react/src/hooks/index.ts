@@ -8,7 +8,7 @@ export function useLocalStorage<T>(
   };
   const getValue = () => {
     // 防止数据为空时报错
-    const value = get(localStorage.getItem(storageKey), "", '""');
+    const value = localStorage.getItem(storageKey) ?? "";
     return JSON.parse(value) as Partial<T>;
   };
 

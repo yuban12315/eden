@@ -15,6 +15,8 @@ export const SimpleFlexContainer = styled.div<SimpleFlexContainerProps>`
   height: ${(props) => props.height || 48}px;
   padding: ${(props) => props.padding || "0"};
 
+  user-select: none;
+
   .side {
     display: flex;
     align-items: center;

@@ -4,7 +4,8 @@ import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useLocalStorage } from "../../hooks";
 import { useStore } from "../../store/index";
-// TODO: 切换到 slate-react
+import { EditorViewContainer } from "./styled";
+// TODO: switch to slate-react looks like one editor component, never mind
 
 const MARKDOWN_KEY = "MARKDOWN_KEY";
 
@@ -59,14 +60,18 @@ const Editor: FC<EditorViewProps> = (props) => {
   };
 
   return (
-    <RichEditor
-      dark={isDarkMode}
-      autoFocus
-      value={initialContent}
-      onChange={(value) => setContent(value)}
-      onSave={handleSave}
-      onBlur={handleSave}
-    />
+    <EditorViewContainer>
+      <RichEditor
+        className=""
+        placeholder="写点什么吧~"
+        dark={isDarkMode}
+        // autoFocus
+        value={initialContent}
+        onChange={(value) => setContent(value)}
+        onSave={handleSave}
+        onBlur={handleSave}
+      />
+    </EditorViewContainer>
   );
 };
 

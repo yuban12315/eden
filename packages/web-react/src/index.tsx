@@ -4,17 +4,25 @@ import "@arco-design/theme-high-contrast/css/arco.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import LoadingView from "./components/LoadingView";
-import { useStore } from "./store";
+import { AppState, LocalConfigKey, useStore } from "./store";
 import { ApolloProvider } from "@apollo/client";
 import client from "./apollo";
+import { useLocalStorage } from "./hooks";
 
 // lazy loading pages
 const Editor = lazy(() => import("./pages/Editor"));
 
 const App = () => {
   const setMode = useStore((state) => state.setMode);
+  const [getConfig] = useLocalStorage<AppState>(LocalConfigKey);
+
+  const restoreUserConfig = () => {
+    const userConfig = getConfig();
+    setMode(userConfig.mode ?? { isDarkMode: false });
+  };
+
   useEffect(() => {
-    setMode({ isDarkMode: false });
+    restoreUserConfig();
   }, []);
 
   return (

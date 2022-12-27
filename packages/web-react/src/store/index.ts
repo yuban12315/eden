@@ -1,4 +1,10 @@
 import create from "zustand";
+import { useLocalStorage } from "../hooks/index";
+
+export const LocalConfigKey = "EDEN_LOCAL_CONFIG";
+// this is not a react hook
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const [, saveConfig] = useLocalStorage<AppState>(LocalConfigKey);
 
 interface UserState {
   name: string;
@@ -13,7 +19,7 @@ interface Mode {
   isEditMode: boolean;
 }
 
-interface AppState {
+export interface AppState {
   user: UserState;
   setUser: (user: UserState) => void;
 
@@ -39,6 +45,10 @@ export const useStore = create<AppState>((set) => ({
         document.body.setAttribute("arco-theme", "light");
       }
 
-      return { ...state, mode: { ...state.mode, ...mode } };
+      const finalMode = { ...state.mode, ...mode };
+
+      saveConfig({ mode: finalMode });
+
+      return { ...state, mode: finalMode };
     }),
 }));

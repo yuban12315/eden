@@ -1,11 +1,14 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import RichEditor from "rich-markdown-editor";
+import { Editable, withReact, useSlate, Slate } from "slate-react";
+
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useLocalStorage } from "../../hooks";
 import { useStore } from "../../store/index";
 import { EditorViewContainer } from "./styled";
 // TODO: switch to slate-react looks like one editor component, never mind
+// TODO: editor view 组件不负责保存数据，数据保存交给外层组件
 
 const MARKDOWN_KEY = "MARKDOWN_KEY";
 
@@ -16,63 +19,44 @@ const MARKDOWN_KEY = "MARKDOWN_KEY";
 
 interface EditorViewProps {
   content: string;
-  onChange: (value: string) => Promise<void>;
+  onChange?: (value: string) => Promise<void>;
+  onSave?: (value: string) => Promise<void>;
 }
 
-const Editor: FC<EditorViewProps> = (props) => {
+const EditorView: FC<EditorViewProps> = (props) => {
+  // 内部维护的状态，这里不直接把content作为value传给editor组件
+  // 防止光标闪动
   const [initialContent, setInitialContent] = useState<string>("");
+  // 内部维护的内容状态
   const [content, setContent] = useState<string>("");
-
-  const [getNote, setNote] = useLocalStorage<string>(MARKDOWN_KEY);
   const isDarkMode = useStore((state) => state.mode.isDarkMode);
 
   useEffect(() => {
-    recover();
-  }, []);
+    setInitialContent(props.content);
+  }, [props.content]);
 
-  // 自动保存到localStorage
-  // const autoSave = () => {
-  //   localStorage.setItem("markdown", "");
-  // };
-
-  // 从localStorage或远端还原
-  const recover = () => {
-    const note = getNote();
-
-    setInitialContent(note);
-  };
-
-  // 保存到远端
-  const handleSave = () => {
-    // 保存到localStorage
-    setNote(content || initialContent);
-  };
-
-  // 按下ctrl+s或command+s时调用保存
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
-      // props.handleSave && props.handleSave(value);
-      event.preventDefault();
-
-      // TODO: remove test log when api called
-      console.log("should save code");
-    }
+  // 调用父组件的保存方法
+  const handleSave = async () => {
+    await props.onSave?.(content || initialContent);
   };
 
   return (
     <EditorViewContainer>
-      <RichEditor
-        className=""
-        placeholder="写点什么吧~"
-        dark={isDarkMode}
-        // autoFocus
-        value={initialContent}
-        onChange={(value) => setContent(value)}
-        onSave={handleSave}
-        onBlur={handleSave}
-      />
+      {/* 必须在有内容的时候渲染editor，此时autoFocus才能把光标移动到最后一行 */}
+      {initialContent && (
+        <RichEditor
+          className="editor-inner"
+          placeholder="写点什么吧~"
+          dark={isDarkMode}
+          value={initialContent}
+          onChange={(value) => setContent(value)}
+          onSave={handleSave}
+          onBlur={handleSave}
+          autoFocus
+        />
+      )}
     </EditorViewContainer>
   );
 };
 
-export default Editor;
+export default EditorView;

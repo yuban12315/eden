@@ -3,24 +3,38 @@ import EditorView from "../../components/EditorView";
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useGetNoteConentQuery } from "../../apollo/operation";
+import { useLocalStorage } from "../../hooks";
+import { Message } from "@arco-design/web-react";
+
+const MARKDOWN_KEY = "MARKDOWN_KEY";
 
 const Editor: FC = () => {
-  const { data, error, loading } = useGetNoteConentQuery({
-    variables: { id: "619fa152fa3e9e5a4b8b43cd" },
-  });
+  const [getNote, setNote] = useLocalStorage<string>(MARKDOWN_KEY);
+  const [content, setContent] = useState<string>("");
 
-  console.log(data);
-  console.log(error);
+  const recover = () => {
+    const note = getNote();
+    setContent(note);
+    console.log("recover", note);
+  };
 
-  const handleChangeContent = async () => {};
+  useEffect(() => {
+    recover();
+  }, []);
+
+  const handleChangeContent = async (content: string) => {
+    setNote(content);
+    Message.success("saved");
+  };
 
   return (
     <Page>
       <Navbar />
       <Container>
         <EditorView
-          content={data?.content.content ?? ""}
+          content={content}
           onChange={handleChangeContent}
+          onSave={handleChangeContent}
         />
       </Container>
     </Page>

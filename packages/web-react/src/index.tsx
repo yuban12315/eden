@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import ReactDOM from "react-dom";
+import "./reset.css";
 import "@arco-design/theme-high-contrast/css/arco.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
@@ -8,9 +9,14 @@ import { AppState, LocalConfigKey, useStore } from "./store";
 import { ApolloProvider } from "@apollo/client";
 import client from "./apollo";
 import { useLocalStorage } from "./hooks";
+import { Message } from "@arco-design/web-react";
+
+Message.config({ maxCount: 3 });
 
 // lazy loading pages
 const Editor = lazy(() => import("./pages/Editor"));
+const Collection = lazy(() => import("./pages/Collection"));
+const Collections = lazy(() => import("./pages/Collections"));
 
 const App = () => {
   const setMode = useStore((state) => state.setMode);
@@ -30,10 +36,13 @@ const App = () => {
       <Suspense fallback={<LoadingView />}>
         <Routes>
           <Route path="/editor" element={<Editor />} />
+          <Route path="/collection/:id" element={<Collection />} />
+          <Route path="/collection" element={<Collections />} />
+
           {/* <Route path="/new" element={<NewApp />} /> */}
 
           {/* redirect to editor */}
-          <Route path="*" element={<Navigate to="/editor" />} />
+          <Route path="*" element={<Navigate to="/collection" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
@@ -49,8 +58,3 @@ ReactDOM.render(
 
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

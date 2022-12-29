@@ -1,4 +1,4 @@
-import indexDB from "./IndexDB";
+import IDB from "./IDB";
 
 export default class Model<T> {
   private name: string;
@@ -6,27 +6,11 @@ export default class Model<T> {
   constructor(name: string) {
     this.name = name;
 
-    // init
-    this.initObjectStore();
-  }
-
-  async initObjectStore() {
-    const db = await indexDB.getDB();
-
-    if (!db.objectStoreNames.contains(this.name)) {
-      db.createObjectStore(this.name, { keyPath: "id" });
-    }
-  }
-
-  async createTransaction(mode?: IDBTransactionMode) {
-    return (await indexDB.getDB()).transaction([this.name], mode);
+    IDB.registerCollection(this.name);
   }
 
   async add(data: T) {
-    console.log("add", data, "this.name", this.name);
-    const transaction = await this.createTransaction("readwrite");
-
-    console.log("objectStore", transaction.objectStore(this.name));
+    const transaction = await IDB.createTransaction(this.name, "readwrite");
 
     const request = transaction.objectStore(this.name).add(data);
 

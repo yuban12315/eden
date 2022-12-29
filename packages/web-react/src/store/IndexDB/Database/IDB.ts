@@ -31,8 +31,9 @@ class IDB {
         resolve(db);
       };
 
-      req.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+      req.onupgradeneeded = () => {
         const idb = req.result;
+
         for (const collection of this.collections) {
           if (!idb.objectStoreNames.contains(collection)) {
             idb.createObjectStore(collection, { keyPath: "id" });
@@ -60,15 +61,18 @@ class IDB {
 
   async getDBWithObjectStore(storeNames: string) {
     if (!this.idb) {
+      // create targe objectStore
       return await this.openDB();
     } else if (
       this.version &&
       !this.idb.objectStoreNames.contains(storeNames)
     ) {
+      // upgrade db version to create targe objectStore
       this.version++;
       return await this.openDB();
     } else {
-      return this.idb!;
+      // use current db
+      return this.idb;
     }
   }
 

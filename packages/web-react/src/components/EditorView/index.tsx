@@ -1,16 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import RichEditor from "rich-markdown-editor";
-import { Editable, withReact, useSlate, Slate } from "slate-react";
 
-import Navbar from "../../components/Navbar";
-import { Container, Page } from "../../components/Styled";
-import { useLocalStorage } from "../../hooks";
 import { useStore } from "../../store/index";
 import { EditorViewContainer } from "./styled";
 // TODO: switch to slate-react looks like one editor component, never mind
 // TODO: editor view 组件不负责保存数据，数据保存交给外层组件
-
-const MARKDOWN_KEY = "MARKDOWN_KEY";
 
 // TODO: 文章内容保存
 // TODO: 文章导出成MarkDown

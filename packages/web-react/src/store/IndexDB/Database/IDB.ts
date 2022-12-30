@@ -1,32 +1,29 @@
 const DataBaseName = "EdenCollection";
 
 class IDB {
-  private version?: number;
-  private idb?: IDBDatabase;
-  private open?: boolean;
-  private collections: string[];
+  private _version?: number;
+  private _idb?: IDBDatabase;
+  private _open?: boolean;
+  private _collections: string[];
 
   constructor() {
-    this.collections = [];
-
-    // init
-    // this.openDB();
+    this._collections = [];
   }
 
-  async openDB(): Promise<IDBDatabase> {
+  private async _openDB(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
-      if (this.idb) {
-        this.idb.close();
+      if (this._idb) {
+        this._idb.close();
       }
-      const req = indexedDB.open(DataBaseName, this.version);
+      const req = indexedDB.open(DataBaseName, this._version);
 
       req.onsuccess = () => {
         // https://github.com/microsoft/TypeScript/issues/28293
         const db = req.result;
 
-        this.idb = db;
-        this.open = true;
-        this.version = db.version;
+        this._idb = db;
+        this._open = true;
+        this._version = db.version;
 
         resolve(db);
       };
@@ -34,9 +31,11 @@ class IDB {
       req.onupgradeneeded = () => {
         const idb = req.result;
 
-        for (const collection of this.collections) {
+        for (const collection of this._collections) {
           if (!idb.objectStoreNames.contains(collection)) {
-            idb.createObjectStore(collection, { keyPath: "id" });
+            idb
+              .createObjectStore(collection, { keyPath: "id" })
+              .createIndex("id", "id", { unique: true });
           }
         }
       };
@@ -48,31 +47,31 @@ class IDB {
   }
 
   async registerCollection(name: string) {
-    if (!this.idb?.objectStoreNames.contains(name)) {
-      this.collections.push(name);
+    if (!this._idb?.objectStoreNames.contains(name)) {
+      this._collections.push(name);
     }
   }
 
   async upgradeAndGetDB() {
-    this.version!++;
+    this._version!++;
     // wait ontill db opened
-    return await this.openDB();
+    return await this._openDB();
   }
 
   async getDBWithObjectStore(storeNames: string) {
-    if (!this.idb) {
+    if (!this._idb) {
       // create targe objectStore
-      return await this.openDB();
+      return await this._openDB();
     } else if (
-      this.version &&
-      !this.idb.objectStoreNames.contains(storeNames)
+      this._version &&
+      !this._idb.objectStoreNames.contains(storeNames)
     ) {
       // upgrade db version to create targe objectStore
-      this.version++;
-      return await this.openDB();
+      this._version++;
+      return await this._openDB();
     } else {
       // use current db
-      return this.idb;
+      return this._idb;
     }
   }
 
@@ -85,4 +84,5 @@ class IDB {
   }
 }
 
-export default new IDB();
+const idb = new IDB();
+export { idb };

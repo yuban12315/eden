@@ -35,15 +35,18 @@ const Collections = () => {
     }
   };
 
+  const findAll = async () => {
+    const data = await CollectionModel.find();
+    console.log(data);
+  };
+
   return (
     <Page>
       <Navbar />
       <Container>
         <Space>
           <Button onClick={onClick}>add a connection</Button>
-          <Button onClick={deleteCollection}>
-            delete Connection: {collection?.id || "empty"}
-          </Button>
+          <Button onClick={findAll}>find all</Button>
           <Button onClick={updateCollection}>update collection</Button>
         </Space>
         {JSON.stringify(collection, null, 2)}

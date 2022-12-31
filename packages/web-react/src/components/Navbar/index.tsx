@@ -7,8 +7,12 @@ import shallow from "zustand/shallow";
 import { IconMoonFill, IconSunFill } from "@arco-design/web-react/icon";
 
 const Navbar: FC = () => {
-  const { isDarkMode, setMode } = useStore(
-    (state) => ({ isDarkMode: state.mode.isDarkMode, setMode: state.setMode }),
+  const { isDarkMode, setMode, user } = useStore(
+    (state) => ({
+      isDarkMode: state.mode.isDarkMode,
+      setMode: state.setMode,
+      user: state.user,
+    }),
     shallow
   );
   const switchMode = () => {
@@ -29,12 +33,7 @@ const Navbar: FC = () => {
           </Tooltip>
         </IconContainer>
 
-        <UserBrand
-          user={{
-            name: "yuban12315",
-            avatar: "https://avatars.githubusercontent.com/u/16523798?s=56&v=4",
-          }}
-        />
+        <UserBrand user={user} />
       </FlexDiv>
     </SimpleFlexContainer>
   );

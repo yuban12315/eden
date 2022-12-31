@@ -75,13 +75,64 @@ class Model<T> {
     });
   }
 
+  async find(query?: Partial<T>) {
+    const deferred = Q.defer<T[]>();
+
+    const transaction = await idb.createTransaction(this.name, "readonly");
+    const request = transaction.objectStore(this.name).openCursor();
+
+    const datas: T[] = [];
+
+    request.onsuccess = () => {
+      const cursor = request.result;
+      if (cursor) {
+        datas.push(cursor.value);
+        cursor.continue();
+      } else {
+        deferred.resolve(datas);
+      }
+    };
+
+    request.onerror = () => {
+      console.debug(this.name, "数据查询失败");
+      deferred.reject(request.error);
+    };
+
+    return deferred.promise;
+  }
+
+  async findById(id: string) {
+    const deferred = Q.defer<T>();
+
+    const transaction = await idb.createTransaction(this.name, "readonly");
+    const request = transaction
+      .objectStore(this.name)
+      .index("id")
+      .openCursor(IDBKeyRange.only(id));
+
+    request.onsuccess = () => {
+      const cursor = request.result;
+      if (cursor) {
+        cursor.continue();
+        deferred.resolve(cursor.value);
+      }
+    };
+
+    request.onerror = () => {
+      console.debug(this.name, "数据查询失败");
+      deferred.reject(request.error);
+    };
+
+    return deferred.promise;
+  }
+
   /** update data */
   async update(id: string, data: Omit<Partial<T>, keyof ModelBase>) {
     const deferred = Q.defer<T>();
 
-    const transaction = await idb.createTransaction(this.name, "readwrite");
-
     this.checkId(id);
+
+    const transaction = await idb.createTransaction(this.name, "readwrite");
 
     const request = transaction
       .objectStore(this.name)
@@ -99,6 +150,7 @@ class Model<T> {
 
         cursor.update(modifiedData);
         cursor.continue();
+
         deferred.resolve(modifiedData);
       }
     };

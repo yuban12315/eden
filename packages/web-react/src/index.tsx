@@ -20,11 +20,17 @@ const Collections = lazy(() => import("./pages/Collections"));
 
 const App = () => {
   const setMode = useStore((state) => state.setMode);
+  const setUser = useStore((state) => state.setUser);
   const [getConfig] = useLocalStorage<AppState>(LocalConfigKey);
 
   const restoreUserConfig = () => {
     const userConfig = getConfig();
     setMode(userConfig.mode ?? { isDarkMode: false });
+    setUser({
+      id: "misaka12315",
+      name: "御坂12315",
+      avatar: "https://avatars.githubusercontent.com/u/16523798?s=56&v=4",
+    });
   };
 
   useEffect(() => {

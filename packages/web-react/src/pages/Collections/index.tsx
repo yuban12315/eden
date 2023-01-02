@@ -2,55 +2,34 @@ import Navbar from "../../components/Navbar";
 import { Page, Container } from "../../components/Styled";
 import { useEffect, useState } from "react";
 import { Button, Space } from "@arco-design/web-react";
-import CollectionModel from "../../store/IndexDB/Models/Collection";
 import { Collection } from "../../store/IndexDB/Models/Collection";
+import Apis from "../../apis";
+import CollectionItem from "./CollectionItem";
 
 const Collections = () => {
-  const [collection, setCollection] = useState<Collection>();
-  useEffect(() => {}, []);
+  const [collections, setCollections] = useState<Collection[]>([]);
 
-  const onClick = async () => {
-    const data = await CollectionModel.add({
-      name: "test",
-      // creator: { id: "yuban12315", name: "yuban12315", avatar: "" },
-      authorId: "11",
-    });
-    setCollection(data);
+  const init = async () => {
+    const collections = await Apis.findCollections();
+    setCollections(collections ?? []);
   };
 
-  const deleteCollection = async () => {
-    if (collection?.id) {
-      await CollectionModel.delete(collection.id);
-      setCollection(undefined);
+  useEffect(() => {
+    init();
+  }, []);
+
+  const renderCollections = () => {
+    if (collections.length > 0) {
+      return collections?.map((collection) => (
+        <CollectionItem data={collection} key={collection.id} />
+      ));
     }
-  };
-
-  const updateCollection = async () => {
-    if (collection?.id) {
-      const newCollection = await CollectionModel.update(collection.id, {
-        name: Math.random().toString() + "---data--" + collection.name,
-      });
-
-      setCollection(newCollection);
-    }
-  };
-
-  const findAll = async () => {
-    const data = await CollectionModel.find();
-    console.log(data);
   };
 
   return (
     <Page>
       <Navbar />
-      <Container>
-        <Space>
-          <Button onClick={onClick}>add a connection</Button>
-          <Button onClick={findAll}>find all</Button>
-          <Button onClick={updateCollection}>update collection</Button>
-        </Space>
-        {JSON.stringify(collection, null, 2)}
-      </Container>
+      <Container>{renderCollections()}</Container>
     </Page>
   );
 };

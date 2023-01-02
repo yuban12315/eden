@@ -29,7 +29,9 @@ export const Page = styled.div`
   z-index: 2;
   font-size: 14px;
   position: relative;
-  background-color: var(--color-bg-1);
+  background-color: var(--color-neutral-2);
+
+  user-select: none;
 `;
 
 export const Container = styled.div`
@@ -53,4 +55,8 @@ export const FlexDiv = styled.div`
 export const IconContainer = styled.div`
   /* color: var(--color-primary-6); */
   margin-right: 4px;
+`;
+
+export const Info = styled.div`
+  color: var(--color-text-3);
 `;

@@ -2,6 +2,7 @@ import { ModelBase, Model } from "../Database";
 
 export interface Collection extends ModelBase {
   name: string;
+  description: string;
   coverImage?: string;
   authorId: string;
 }

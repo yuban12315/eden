@@ -2,7 +2,6 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import EditorView from "../../components/EditorView";
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
-import { useGetNoteConentQuery } from "../../apollo/operation";
 import { useLocalStorage } from "../../hooks";
 import { Message } from "@arco-design/web-react";
 
@@ -31,11 +30,11 @@ const Editor: FC = () => {
     <Page>
       <Navbar />
       <Container>
-        <EditorView
+        {/* <EditorView
           content={content}
           onChange={handleChangeContent}
           onSave={handleChangeContent}
-        />
+        /> */}
       </Container>
     </Page>
   );

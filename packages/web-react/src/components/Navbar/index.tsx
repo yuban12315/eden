@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { FlexDiv, IconContainer, SimpleFlexContainer } from "../Styled";
-import { PageHeader, Button, Tooltip } from "@arco-design/web-react";
+import { PageHeader, Button } from "@arco-design/web-react";
 import UserBrand from "../UserBrand";
 import { useStore } from "../../store/index";
 import shallow from "zustand/shallow";
 import { IconMoonFill, IconSunFill } from "@arco-design/web-react/icon";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar: FC = () => {
   const { isDarkMode, setMode, user } = useStore(
@@ -15,22 +16,32 @@ const Navbar: FC = () => {
     }),
     shallow
   );
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const switchMode = () => {
     setMode({ isDarkMode: !isDarkMode });
   };
 
+  const handleBack = () => {
+    navigate("/collection");
+  };
+
   return (
-    <SimpleFlexContainer height={100} padding="35px 80px">
-      <PageHeader title="EdenWeb" subTitle="Eden项目Web版" />
+    <SimpleFlexContainer height={100} padding="35px 40px">
+      <PageHeader
+        title="EdenWeb"
+        subTitle="Eden项目Web版"
+        backIcon={location.pathname !== "/collection"}
+        onBack={handleBack}
+      />
       <FlexDiv>
         <IconContainer>
-          <Tooltip content="切换显示模式">
-            <Button
-              onClick={switchMode}
-              size="mini"
-              icon={isDarkMode ? <IconMoonFill /> : <IconSunFill />}
-            />
-          </Tooltip>
+          <Button
+            onClick={switchMode}
+            size="mini"
+            icon={isDarkMode ? <IconMoonFill /> : <IconSunFill />}
+          />
         </IconContainer>
 
         <UserBrand user={user} />

@@ -12,7 +12,7 @@ const UserBrandContainer = styled(FlexDiv)`
   margin-left: 4px;
   .name {
     margin-left: 8px;
-    color: #4e5969;
+    color: var(--color-text-3);
     font-size: 14px;
   }
 `;

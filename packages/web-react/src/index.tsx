@@ -1,9 +1,9 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./reset.css";
+import "./global.css";
 import "@arco-design/theme-high-contrast/css/arco.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
 import LoadingView from "./components/LoadingView";
 import { AppState, LocalConfigKey, useStore } from "./store";
 import { ApolloProvider } from "@apollo/client";
@@ -48,7 +48,7 @@ const App = () => {
           {/* <Route path="/new" element={<NewApp />} /> */}
 
           {/* redirect to editor */}
-          <Route path="*" element={<Navigate to="/collection" />} />
+          <Route path="*" element={<Navigate to="/editor" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

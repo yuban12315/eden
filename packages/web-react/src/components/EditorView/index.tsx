@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import RichEditor from "rich-markdown-editor";
-
 import { useStore } from "../../store/index";
 import { EditorViewContainer } from "./styled";
 // TODO: switch to slate-react looks like one editor component, never mind
@@ -21,6 +20,7 @@ const EditorView: FC<EditorViewProps> = (props) => {
   // 内部维护的状态，这里不直接把content作为value传给editor组件
   // 防止光标闪动
   const [initialContent, setInitialContent] = useState<string>("");
+
   // 内部维护的内容状态
   const [content, setContent] = useState<string>("");
   const isDarkMode = useStore((state) => state.mode.isDarkMode);
@@ -35,7 +35,7 @@ const EditorView: FC<EditorViewProps> = (props) => {
   };
 
   return (
-    <EditorViewContainer>
+    <EditorViewContainer dark={isDarkMode}>
       {/* 必须在有内容的时候渲染editor，此时autoFocus才能把光标移动到最后一行 */}
       {initialContent && (
         <RichEditor

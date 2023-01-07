@@ -1,5 +1,6 @@
 import create from "zustand";
 import { useLocalStorage } from "../hooks/index";
+import { Collection } from "./IndexDB/Models/Collection";
 
 export const LocalConfigKey = "EDEN_LOCAL_CONFIG";
 // this is not a react hook
@@ -25,6 +26,9 @@ export interface AppState {
 
   mode: Mode;
   setMode: (mode: Partial<Mode>) => void;
+
+  collectionData?: Collection;
+  setCollectionData: (data: Collection) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -39,16 +43,19 @@ export const useStore = create<AppState>((set) => ({
   mode: { isDarkMode: true, isEditMode: false },
   setMode: (mode) =>
     set((state) => {
-      if (mode.isDarkMode) {
-        document.body.setAttribute("arco-theme", "dark");
-      } else {
-        document.body.setAttribute("arco-theme", "light");
-      }
+      mode.isDarkMode
+        ? document.body.setAttribute("arco-theme", "dark")
+        : document.body.setAttribute("arco-theme", "light");
 
       const finalMode = { ...state.mode, ...mode };
-
       saveConfig({ mode: finalMode });
 
       return { ...state, mode: finalMode };
     }),
+
+  setCollectionData: (data) =>
+    set((state) => ({
+      ...state,
+      collectionData: data,
+    })),
 }));

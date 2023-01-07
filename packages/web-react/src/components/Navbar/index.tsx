@@ -7,6 +7,8 @@ import shallow from "zustand/shallow";
 import { IconMoonFill, IconSunFill } from "@arco-design/web-react/icon";
 import { useLocation, useNavigate } from "react-router-dom";
 
+export const NavbarHeight = 100;
+
 const Navbar: FC = () => {
   const { isDarkMode, setMode, user } = useStore(
     (state) => ({
@@ -28,7 +30,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <SimpleFlexContainer height={100} padding="35px 40px">
+    <SimpleFlexContainer height={NavbarHeight} padding="30px 40px">
       <PageHeader
         title="EdenWeb"
         subTitle="Eden项目Web版"

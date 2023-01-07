@@ -30,11 +30,7 @@ const Editor: FC = () => {
     <Page>
       <Navbar />
       <Container>
-        {/* <EditorView
-          content={content}
-          onChange={handleChangeContent}
-          onSave={handleChangeContent}
-        /> */}
+        <EditorView content={content} onSave={handleChangeContent} />
       </Container>
     </Page>
   );

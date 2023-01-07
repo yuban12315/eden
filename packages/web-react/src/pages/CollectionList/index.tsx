@@ -10,7 +10,7 @@ const Collections = () => {
   const [collections, setCollections] = useState<Collection[]>([]);
 
   const init = async () => {
-    const collections = await Apis.findCollections();
+    const collections = await Apis.collection.findCollections();
     setCollections(collections ?? []);
   };
 

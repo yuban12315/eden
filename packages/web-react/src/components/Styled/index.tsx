@@ -30,20 +30,21 @@ export const Page = styled.div`
   font-size: 14px;
   position: relative;
   background-color: var(--color-neutral-2);
+  min-width: 600px;
 
   user-select: none;
 `;
 
 export const Container = styled.div`
   transition: all 1s;
-  @media (min-width: 1200px) {
-    margin-left: 10%;
-    width: 80%;
+  @media (min-width: 800px) {
+    margin-left: 5%;
+    width: 90%;
   }
 
-  @media (min-width: 500px) and (max-width: 1200px) {
-    margin-left: 10%;
-    width: 80%;
+  @media (min-width: 500px) and (max-width: 800px) {
+    margin-left: 1%;
+    width: 98%;
   }
 `;
 

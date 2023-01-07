@@ -6,6 +6,8 @@ import DefaultCover from "../../assets/images/Elysia.png";
 import { Space } from "@arco-design/web-react";
 import { useNavigate } from "react-router-dom";
 
+// TODO: 支持显示总字数
+
 interface CollectionItemProps {
   data: Collection;
 }
@@ -15,7 +17,6 @@ const CollectionItem: FC<CollectionItemProps> = (props) => {
   const navigate = useNavigate();
 
   const navigateToDetail = (id: string) => {
-    console.log("object");
     navigate(`/collection/${id}`);
   };
 

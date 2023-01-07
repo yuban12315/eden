@@ -15,8 +15,9 @@ Message.config({ maxCount: 3 });
 
 // lazy loading pages
 const Editor = lazy(() => import("./pages/Editor"));
-const Collection = lazy(() => import("./pages/Collection"));
-const Collections = lazy(() => import("./pages/Collections"));
+const Collection = lazy(() => import("./pages/CollectionDetail"));
+const CollectionList = lazy(() => import("./pages/CollectionList"));
+const Note = lazy(() => import("./pages/Note"));
 
 const App = () => {
   const setMode = useStore((state) => state.setMode);
@@ -41,14 +42,13 @@ const App = () => {
     <BrowserRouter>
       <Suspense fallback={<LoadingView />}>
         <Routes>
-          <Route path="/editor" element={<Editor />} />
+          <Route path="/editor" element={<Editor />} />{" "}
+          <Route path="/collection" element={<CollectionList />} />
           <Route path="/collection/:id" element={<Collection />} />
-          <Route path="/collection" element={<Collections />} />
-
+          <Route path="/note/:id" element={<Note />} />
           {/* <Route path="/new" element={<NewApp />} /> */}
-
           {/* redirect to editor */}
-          <Route path="*" element={<Navigate to="/editor" />} />
+          <Route path="*" element={<Navigate to="/Collection" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

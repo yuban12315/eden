@@ -1,6 +1,3 @@
-export interface User {
-  id: string;
-  name: string;
-  nickname: string;
-  avatar: string;
-}
+import type { Collection } from "../store/IndexDB/Models/Collection";
+
+export interface CollectionData extends Collection {}

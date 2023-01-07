@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { FlexDiv } from "../Styled";
 import { Avatar } from "@arco-design/web-react";
-import { User } from "../../interface";
+import type { User } from "../../store/IndexDB/Models/User";
 
 interface UserBrandProps {
   user: Pick<User, "name" | "avatar">;

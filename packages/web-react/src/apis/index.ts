@@ -1,5 +1,6 @@
-import CollectionApis from "./collection";
+import collection from "./collection";
+import note from "./note";
 
-const Apis = { ...CollectionApis };
+const Apis = { collection, note };
 
 export default Apis;

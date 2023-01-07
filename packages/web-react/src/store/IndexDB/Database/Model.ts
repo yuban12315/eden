@@ -1,7 +1,8 @@
-import { idb } from "./IDB";
 import objectid from "bson-objectid";
-import Q from "q";
 import { isUndefined } from "lodash";
+import Q from "q";
+
+import { idb } from "./IDB";
 
 interface ModelBase {
   /** unique objectId */

@@ -1,5 +1,6 @@
-import { FC } from "react";
 import dayjs from "dayjs";
+import { FC } from "react";
+
 import { Info } from "../Styled";
 
 interface DateViewProps {

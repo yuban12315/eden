@@ -1,15 +1,17 @@
-import React, { Suspense, lazy, useEffect } from "react";
-import ReactDOM from "react-dom";
 import "./reset.css";
 import "./global.css";
 import "@arco-design/theme-high-contrast/css/arco.css";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import LoadingView from "./components/LoadingView";
-import { AppState, LocalConfigKey, useStore } from "./store";
+
 import { ApolloProvider } from "@apollo/client";
-import client from "./apollo";
-import { useLocalStorage } from "./hooks";
 import { Message } from "@arco-design/web-react";
+import React, { lazy, Suspense, useEffect } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import client from "./apollo";
+import LoadingView from "./components/LoadingView";
+import { useLocalStorage } from "./hooks";
+import { AppState, LocalConfigKey, useStore } from "./store";
 
 Message.config({ maxCount: 3 });
 

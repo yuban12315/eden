@@ -1,13 +1,14 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
-import Apis from "../../apis";
-import { useStore } from "../../store";
-import styled from "styled-components";
-import { Space, Button, List, Collapse } from "@arco-design/web-react";
-import { useNavigate } from "react-router-dom";
-import type { Note } from "../../store/IndexDB/Models/Note";
+import { Button, Collapse, List, Space } from "@arco-design/web-react";
 import { IconFile } from "@arco-design/web-react/icon";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import Apis from "../../apis";
 import DateView from "../../components/DateView";
 import { FlexDiv, Info } from "../../components/Styled";
+import { useStore } from "../../store";
+import type { Note } from "../../store/IndexDB/Models/Note";
 
 export default function NoteList() {
   const collectionId = useStore((state) => state.collectionData)?.id;

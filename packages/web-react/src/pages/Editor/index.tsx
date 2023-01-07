@@ -1,9 +1,10 @@
+import { Message } from "@arco-design/web-react";
 import React, { FC, useEffect, useRef, useState } from "react";
+
 import EditorView from "../../components/EditorView";
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
 import { useLocalStorage } from "../../hooks";
-import { Message } from "@arco-design/web-react";
 
 const MARKDOWN_KEY = "MARKDOWN_KEY";
 

@@ -1,4 +1,4 @@
-import { ModelBase, Model } from "../Database";
+import { Model, ModelBase } from "../Database";
 
 export interface Collection extends ModelBase {
   name: string;

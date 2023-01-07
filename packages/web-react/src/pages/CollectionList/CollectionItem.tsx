@@ -1,10 +1,11 @@
-import { FC } from "react";
-import { Collection } from "../../store/IndexDB/Models/Collection";
-import styled from "styled-components";
-import DateView from "../../components/DateView";
-import DefaultCover from "../../assets/images/Elysia.png";
 import { Space } from "@arco-design/web-react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import DefaultCover from "../../assets/images/Elysia.png";
+import DateView from "../../components/DateView";
+import { Collection } from "../../store/IndexDB/Models/Collection";
 
 // TODO: 支持显示总字数
 

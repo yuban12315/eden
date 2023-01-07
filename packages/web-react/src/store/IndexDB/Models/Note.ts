@@ -1,4 +1,4 @@
-import { ModelBase, Model } from "../Database";
+import { Model, ModelBase } from "../Database";
 
 export interface Note extends ModelBase {
   /** 章节的标题 */

@@ -1,8 +1,9 @@
+import { isUndefined } from "lodash";
 import { FC, useEffect, useState } from "react";
 import RichEditor from "rich-markdown-editor";
+
 import { useStore } from "../../store/index";
 import { EditorViewContainer } from "./styled";
-import { isUndefined } from "lodash";
 // TODO: switch to slate-react looks like one editor component, never mind
 // TODO: editor view 组件不负责保存数据，数据保存交给外层组件
 
@@ -25,6 +26,8 @@ const EditorView: FC<EditorViewProps> = (props) => {
   const [content, setContent] = useState<string>("");
   const isDarkMode = useStore((state) => state.mode.isDarkMode);
 
+  console.log("content", content);
+
   useEffect(() => {
     setInitialContent(props.content);
   }, [props.content]);
@@ -45,7 +48,7 @@ const EditorView: FC<EditorViewProps> = (props) => {
           value={initialContent}
           onChange={(value) => setContent(value)}
           onSave={handleSave}
-          onBlur={handleSave}
+          // onBlur={handleSave}
           autoFocus
         />
       )}

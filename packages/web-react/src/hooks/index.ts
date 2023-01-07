@@ -1,5 +1,3 @@
-import { get } from "lodash-es";
-
 export function useLocalStorage<T>(
   storageKey: string
 ): [() => Partial<T>, (data: Partial<T>) => void] {

@@ -1,11 +1,12 @@
+import { Message } from "@arco-design/web-react";
+import { debounce } from "lodash";
 import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import Apis from "../../apis";
 import EditorView from "../../components/EditorView";
 import Navbar from "../../components/Navbar";
 import { Container, Page } from "../../components/Styled";
-import { Message } from "@arco-design/web-react";
-import { useParams } from "react-router-dom";
-import Apis from "../../apis";
-import { debounce } from "lodash";
 
 const Editor: FC = () => {
   const [content, setContent] = useState<string>();

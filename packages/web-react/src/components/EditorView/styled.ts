@@ -14,6 +14,12 @@ export const EditorViewContainer = styled.div<{ dark?: boolean }>`
   .editor-inner {
     justify-content: flex-start;
     width: 100%;
+    line-height: 1.2em;
+    font-size: 18px;
+
+    .heading-content {
+      line-height: 1.2em;
+    }
   }
   margin-bottom: 12px;
 `;

@@ -1,10 +1,11 @@
 import { Typography } from "@arco-design/web-react";
-import { Fragment, useCallback, useEffect, useState } from "react";
-import { useStore } from "../../store/zustand";
-import styled from "styled-components";
 import { debounce } from "lodash";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import styled from "styled-components";
+
 import Apis from "../../apis";
 import { Collection } from "../../store/IndexDB/Models/Collection";
+import { useStore } from "../../store/zustand";
 
 export default function BasicInfo() {
   const collectionData = useStore((state) => state.collectionData);

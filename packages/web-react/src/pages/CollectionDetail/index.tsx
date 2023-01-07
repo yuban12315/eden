@@ -1,10 +1,11 @@
+import { Collapse, Grid, Space } from "@arco-design/web-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
 import Apis from "../../apis";
 import Navbar from "../../components/Navbar";
 import { Container, FlexDiv, Page } from "../../components/Styled";
-import { Space, Collapse, Grid } from "@arco-design/web-react";
-import styled from "styled-components";
 import { useStore } from "../../store";
 import BasicInfo from "./BasicInfo";
 import NoteList from "./NoteList";

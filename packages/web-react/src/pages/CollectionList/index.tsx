@@ -1,9 +1,10 @@
-import Navbar from "../../components/Navbar";
-import { Page, Container } from "../../components/Styled";
-import { useEffect, useState } from "react";
 import { Button, Space } from "@arco-design/web-react";
-import { Collection } from "../../store/IndexDB/Models/Collection";
+import { useEffect, useState } from "react";
+
 import Apis from "../../apis";
+import Navbar from "../../components/Navbar";
+import { Container, Page } from "../../components/Styled";
+import { Collection } from "../../store/IndexDB/Models/Collection";
 import CollectionItem from "./CollectionItem";
 
 const Collections = () => {

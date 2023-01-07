@@ -1,6 +1,7 @@
 import { idb } from "./IDB";
 import objectid from "bson-objectid";
 import Q from "q";
+import { isUndefined } from "lodash";
 
 interface ModelBase {
   /** unique objectId */
@@ -75,7 +76,7 @@ class Model<T> {
     });
   }
 
-  async find(query?: Partial<T>) {
+  async find(query: Partial<T> = {}) {
     const deferred = Q.defer<T[]>();
 
     const transaction = await idb.createTransaction(this.name, "readonly");
@@ -83,10 +84,25 @@ class Model<T> {
 
     const datas: T[] = [];
 
+    // onsuccess will be called untill no data to be found
     request.onsuccess = () => {
       const cursor = request.result;
       if (cursor) {
-        datas.push(cursor.value);
+        const data = cursor.value as T;
+
+        // find by user query
+        const qualifications = Object.entries(query);
+        let qualificationCount = qualifications.length;
+
+        qualifications.forEach(([key, value]) => {
+          // query specific string field
+          if (typeof value === "string" && data[key as keyof T] === value) {
+            qualificationCount--;
+          }
+        });
+
+        qualificationCount === 0 && datas.push(data);
+
         cursor.continue();
       } else {
         deferred.resolve(datas);

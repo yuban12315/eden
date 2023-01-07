@@ -2,8 +2,10 @@ import type { ModelBase } from "../store/IndexDB/Database";
 import NoteModel, { Note } from "../store/IndexDB/Models/Note";
 import { useStore } from "../store/zustand";
 
-const findNotes = async () => {
-  const data = await NoteModel.find();
+const findNotes = async (collectionId: string) => {
+  const data = await NoteModel.find({
+    collectionId: collectionId,
+  });
   return data;
 };
 

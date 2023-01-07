@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import Apis from "../../apis";
 import { useStore } from "../../store";
 import styled from "styled-components";
@@ -16,16 +16,17 @@ export default function NoteList() {
 
   const [notes, setNotes] = useState<Note[]>();
 
-  const init = async () => {
-    const noteRes = await Apis.note.findNotes();
-
-    console.log(noteRes);
+  const init = useCallback(async () => {
+    if (!collectionId) {
+      return;
+    }
+    const noteRes = await Apis.note.findNotes(collectionId);
     setNotes(noteRes);
-  };
+  }, [collectionId]);
 
   useEffect(() => {
-    collectionId && init();
-  }, [collectionId]);
+    init();
+  }, [collectionId, init]);
 
   // 创建后跳转到新的编辑页面
   const handleCreateNote = async () => {
